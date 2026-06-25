@@ -1,0 +1,49 @@
+version: "3.9"
+
+services:
+
+  api:
+    build: ./api
+    container_name: ai_api
+    ports:
+      - "8000:8000"
+    environment:
+      REDIS_HOST: redis
+      POSTGRES_HOST: postgres
+    depends_on:
+      - redis
+      - postgres
+
+  agent:
+    build: ./agent
+    container_name: ai_agent
+    ports:
+      - "8001:8001"
+
+  rag:
+    build: ./rag
+    container_name: rag_service
+    ports:
+      - "8002:8002"
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    environment:
+      POSTGRES_DB: aidb
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+    ports:
+      - "5432:5432"
+
+  vector_db:
+    image: chromadb/chroma
+    container_name: chromadb
+    ports:
+      - "8010:8000"

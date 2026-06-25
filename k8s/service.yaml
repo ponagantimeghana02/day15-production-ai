@@ -1,0 +1,58 @@
+# ==========================
+# AI API Service
+# ==========================
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: ai-api-service
+
+spec:
+  selector:
+    app: ai-api
+
+  ports:
+  - port: 80
+    targetPort: 8000
+
+  type: ClusterIP
+
+---
+# ==========================
+# Redis Service
+# ==========================
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: redis-service
+
+spec:
+  selector:
+    app: redis
+
+  ports:
+  - port: 6379
+    targetPort: 6379
+
+  type: ClusterIP
+
+---
+# ==========================
+# PostgreSQL Service
+# ==========================
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: postgres-service
+
+spec:
+  selector:
+    app: postgres
+
+  ports:
+  - port: 5432
+    targetPort: 5432
+
+  type: ClusterIP

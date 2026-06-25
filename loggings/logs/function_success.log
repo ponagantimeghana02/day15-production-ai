@@ -1,0 +1,1 @@
+{"id": "a7310aac-d36b-42e5-a703-c0fd6acaf275", "timestamp": "2026-06-25T07:00:15.766251", "service": "AI_API_Service", "event_type": "function_success", "payload": {"function": "sample_tool", "duration_ms": 0.0}}

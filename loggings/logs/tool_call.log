@@ -1,0 +1,1 @@
+{"id": "56c1f919-2a42-4cce-a991-53e8e6b5e181", "timestamp": "2026-06-25T07:00:15.765252", "service": "AI_API_Service", "event_type": "tool_call", "payload": {"tool_name": "search_tool", "input": {"query": "AI agents"}, "status": "started"}}

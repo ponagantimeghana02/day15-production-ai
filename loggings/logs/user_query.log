@@ -1,0 +1,1 @@
+{"id": "5240ce08-9982-4b52-8821-1087e7fb8a4f", "timestamp": "2026-06-25T07:00:15.765252", "service": "AI_API_Service", "event_type": "user_query", "payload": {"user_id": "123", "query": "What is AI?"}}

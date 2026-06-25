@@ -1,0 +1,42 @@
+{
+  "monitoring": {
+    "ai_requests": 2,
+    "rag_searches": 1,
+    "agent_activity": 1,
+    "total_cost": 1.7
+  },
+  "administration": {
+    "users": 1,
+    "roles": 1,
+    "audit_logs": 2
+  },
+  "operations": {
+    "deployments": 1,
+    "alerts": 3,
+    "incidents": 1
+  },
+  "analytics": {
+    "usage": {
+      "ai_requests": 2,
+      "rag_searches": 1,
+      "agent_activity": 1
+    },
+    "cost": {
+      "total_cost": 1.7,
+      "avg_cost_per_request": 0.85
+    },
+    "performance": {
+      "avg_latency_ms": 1850.0,
+      "error_rate": 0.5
+    }
+  },
+  "system_health": {
+    "services": {
+      "api_gateway": "healthy",
+      "rag_service": "healthy",
+      "agent_service": "healthy",
+      "auth_service": "healthy"
+    },
+    "status": "healthy"
+  }
+}

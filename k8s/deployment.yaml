@@ -1,0 +1,164 @@
+# ==========================
+# AI API Deployment
+# ==========================
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ai-api
+
+spec:
+  replicas: 3
+
+  selector:
+    matchLabels:
+      app: ai-api
+
+  template:
+    metadata:
+      labels:
+        app: ai-api
+
+    spec:
+      containers:
+      - name: ai-api
+
+        image: ai-api:latest
+        imagePullPolicy: Never
+
+        ports:
+        - containerPort: 8000
+
+        env:
+        - name: REDIS_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: ai-config
+              key: REDIS_HOST
+
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: ai-config
+              key: POSTGRES_HOST
+
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "256Mi"
+
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+
+          initialDelaySeconds: 5
+          periodSeconds: 10
+
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+
+          initialDelaySeconds: 15
+          periodSeconds: 20
+
+---
+# ==========================
+# Redis Deployment
+# ==========================
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: redis
+
+  template:
+    metadata:
+      labels:
+        app: redis
+
+    spec:
+      containers:
+      - name: redis
+
+        image: redis:7
+
+        ports:
+        - containerPort: 6379
+
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+
+          limits:
+            cpu: "250m"
+            memory: "256Mi"
+
+---
+# ==========================
+# PostgreSQL Deployment
+# ==========================
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: postgres
+
+  template:
+    metadata:
+      labels:
+        app: postgres
+
+    spec:
+      containers:
+      - name: postgres
+
+        image: postgres:15
+
+        ports:
+        - containerPort: 5432
+
+        env:
+        - name: POSTGRES_DB
+          valueFrom:
+            configMapKeyRef:
+              name: ai-config
+              key: POSTGRES_DB
+
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: ai-secret
+              key: POSTGRES_USER
+
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: ai-secret
+              key: POSTGRES_PASSWORD
+
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "256Mi"
+
+          limits:
+            cpu: "500m"
+            memory: "512Mi"

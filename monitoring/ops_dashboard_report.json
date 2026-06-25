@@ -1,0 +1,14 @@
+{
+  "system_metrics": {
+    "requests": 3,
+    "avg_latency_ms": 1166.67,
+    "error_rate": 0.3333,
+    "cost": 0.065,
+    "active_users": 2
+  },
+  "ai_metrics": {
+    "retrieval_quality": 0.7667,
+    "hallucination_rate": 0.3333,
+    "agent_success_rate": 0.6667
+  }
+}
